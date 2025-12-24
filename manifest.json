@@ -1,6 +1,6 @@
 {
-  "short_name": "BitCalc",
-  "name": "BitCalc - Calculadora de Retorno",
+  "short_name": "PoolPay$",
+  "name": "PoolPay$ - Calculadora de Retorno",
   "icons": [
     {
       "src": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'><circle cx='256' cy='256' r='240' fill='%234b0082' stroke='%23d4af37' stroke-width='20'/><text x='50%' y='65%' font-family='Arial' font-size='300' fill='%23d4af37' text-anchor='middle'>$</text></svg>",
