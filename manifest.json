@@ -1,0 +1,17 @@
+{
+  "short_name": "BitCalc",
+  "name": "BitCalc - Calculadora de Retorno",
+  "icons": [
+    {
+      "src": "https://cdn-icons-png.flaticon.com/512/2489/2489756.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ],
+  "start_url": "index.html",
+  "background_color": "#0f0514",
+  "theme_color": "#0f0514",
+  "display": "standalone",
+  "orientation": "portrait"
+}

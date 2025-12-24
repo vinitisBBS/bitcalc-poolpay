@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <link rel="manifest" href="manifest.json">
+    <title>BitCalc - Calculadora</title>
+    <style>
+        :root {
+            --bg-color: #0f0514; 
+            --card-bg: #1a0b25; 
+            --primary-gold: #f1c40f; 
+            --accent-purple: #9b59b6; 
+            --text-white: #ffffff;
+            --border-color: #3d1d5a;
+        }
+
+        body {
+            font-family: 'Segoe UI', system-ui, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-white);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            padding: 20px;
+        }
+
+        .container {
+            background-color: var(--card-bg);
+            padding: 30px;
+            border-radius: 25px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.6);
+            width: 100%;
+            max-width: 380px;
+            text-align: center;
+            border: 1px solid var(--border-color);
+        }
+
+        .logo-svg {
+            width: 90px;
+            height: 90px;
+            margin-bottom: 10px;
+        }
+
+        h2 {
+            color: var(--primary-gold);
+            text-transform: uppercase;
+            font-size: 1.1rem;
+            letter-spacing: 2px;
+            margin-bottom: 25px;
+        }
+
+        .input-group {
+            margin-bottom: 18px;
+            text-align: left;
+        }
+
+        label {
+            display: block;
+            color: var(--accent-purple);
+            margin-bottom: 8px;
+            font-size: 0.85rem;
+            font-weight: 600;
+        }
+
+        input, select {
+            width: 100%;
+            padding: 15px;
+            background: #251235;
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            color: white;
+            font-size: 1rem;
+            outline: none;
+            box-sizing: border-box;
+        }
+
+        .results {
+            margin-top: 25px;
+            padding: 20px;
+            background: rgba(15, 5, 20, 0.4);
+            border-radius: 15px;
+            border: 1px solid var(--border-color);
+        }
+
+        .result-item {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 12px;
+            font-size: 1.1rem;
+        }
+
+        .result-value {
+            color: var(--primary-gold);
+            font-weight: bold;
+        }
+
+        .percent-info {
+            font-size: 0.8rem;
+            color: var(--accent-purple);
+            margin-top: 10px;
+            line-height: 1.4;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <svg class="logo-svg" viewBox="0 0 100 100">
+        <circle cx="50" cy="50" r="45" fill="#4b0082" stroke="#f1c40f" stroke-width="2"/>
+        <circle cx="50" cy="50" r="38" fill="#6a0dad" stroke="#f1c40f" stroke-width="1"/>
+        <text x="50%" y="65%" text-anchor="middle" fill="#f1c40f" font-family="Arial" font-size="45" font-weight="bold">$</text>
+        <path d="M50 5 L50 12 M95 50 L88 50 M50 95 L50 88 M5 50 L12 50" stroke="#f1c40f" stroke-width="3" stroke-linecap="round"/>
+    </svg>
+    
+    <h2>Calculadora de Retorno</h2>
+
+    <div class="input-group">
+        <label>Investimento Inicial ($)</label>
+        <input type="number" id="valor" inputmode="decimal" placeholder="0,00" oninput="calcular()">
+    </div>
+
+    <div class="input-group">
+        <label>Plano de Rendimento</label>
+        <select id="plano" onchange="calcular()">
+            <option value="0.005">1 Dia (0,5%)</option>
+            <option value="0.03">5 Dias (3,0%)</option>
+            <option value="0.07">10 Dias (7,0%)</option>
+            <option value="0.18">20 Dias (18,0%)</option>
+        </select>
+    </div>
+
+    <div class="input-group">
+        <label>Quantidade de Ciclos</label>
+        <input type="number" id="ciclos" value="1" min="1" inputmode="numeric" oninput="calcular()">
+    </div>
+
+    <div class="results">
+        <div class="result-item">
+            <span>Lucro Total:</span>
+            <span class="result-value" id="lucro">$ 0,00</span>
+        </div>
+        <div class="result-item">
+            <span>Montante Final:</span>
+            <span class="result-value" id="total">$ 0,00</span>
+        </div>
+        <div id="info-detalhe" class="percent-info">Digite um valor para simular.</div>
+    </div>
+
+    <div style="margin-top: 20px; font-size: 0.75rem; color: #9b59b6; opacity: 0.8;">
+        Developed by <span style="color: #f1c40f; font-weight: bold;">vinitisBBS</span>
+    </div>
+</div>
+
+<script>
+// ... mantém sua função calcular() original ...
+    function calcular() {
+        const principal = parseFloat(document.getElementById('valor').value) || 0;
+        const taxa = parseFloat(document.getElementById('plano').value);
+        const nCiclos = parseInt(document.getElementById('ciclos').value) || 1;
+        const montanteFinal = principal * Math.pow((1 + taxa), nCiclos);
+        const lucroTotal = montanteFinal - principal;
+
+        document.getElementById('lucro').innerText = `$ ${lucroTotal.toLocaleString('pt-BR', {minimumFractionDigits: 2, maximumFractionDigits: 2})}`;
+        document.getElementById('total').innerText = `$ ${montanteFinal.toLocaleString('pt-BR', {minimumFractionDigits: 2, maximumFractionDigits: 2})}`;
+        
+        const select = document.getElementById('plano');
+        const dias = [1, 5, 10, 20][select.selectedIndex];
+        document.getElementById('info-detalhe').innerHTML = `Rendimento em ${nCiclos} ciclos compostos.<br>Tempo total: ${nCiclos * dias} dias.`;
+    }
+</script>
+</body>
+</html>
